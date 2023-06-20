@@ -1,0 +1,21 @@
+.loginCss {
+    width: 100%;
+    height: 100vh;
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+button {
+    width: 200px;
+    background-color: green;
+    color: white;
+    height: 56px;
+    border-radius: 20px;
+}
+
+button:hover {
+    background-color: rgb(23, 175, 23);
+    width: 202px;
+}
