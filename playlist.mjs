@@ -1,10 +1,7 @@
-// elimino esto
-// let codeVerifier = localStorage.getItem('code_verifier');
+let codeVerifier = localStorage.getItem('code_verifier');
 
-// agregue estas dos 
 const urlParams = new URLSearchParams(window.location.search);
 let code = urlParams.get('code');
-//////
 
 let body = new URLSearchParams({
   grant_type: 'authorization_code',
@@ -14,6 +11,7 @@ let body = new URLSearchParams({
   code_verifier: codeVerifier
 });
 
+async function updateToken() {
 const response = fetch('https://accounts.spotify.com/api/token', {
   method: 'POST',
   headers: {
@@ -29,11 +27,12 @@ const response = fetch('https://accounts.spotify.com/api/token', {
   })
   .then(data => {
     localStorage.setItem('access_token', data.access_token);
+    getProfile()
   })
   .catch(error => {
     console.error('Error:', error);
   });
-
+}
 
   async function getProfile(accessToken) {
     let accessToken = localStorage.getItem('access_token');
@@ -47,4 +46,6 @@ const response = fetch('https://accounts.spotify.com/api/token', {
     const data = await response.json();
     console.log(data);
   }
+
+  updateToken()
   
