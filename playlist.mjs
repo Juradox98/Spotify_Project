@@ -98,12 +98,13 @@ function addSong(indice) {
 
 function showPlaylistCustom() {
   document.getElementById('playlist-content-custom').innerHTML = ''
-  playlistCustom.forEach(cancion => {
+  playlistCustom.forEach((cancion, index) => {
 
     const tr = document.createElement('tr')
     const tdCancion = document.createElement('td')
     const tdAlbum = document.createElement('td')
     const tdArtis = document.createElement('td')
+    const deleteButton = document.createElement('button')
 
     // asign vales de mi cancion a elementos html
     tdCancion.textContent = cancion.track.name
@@ -112,11 +113,20 @@ function showPlaylistCustom() {
     })
     tdAlbum.textContent = cancion.track.album.name
 
+    deleteButton.setAttribute('onclick', `deleteSong(${index})`)
+    deleteButton.textContent = "Eliminar Cancion"
+
     tr.appendChild(tdCancion)
     tr.appendChild(tdArtis)
     tr.appendChild(tdAlbum)
+    tr.appendChild(deleteButton)
 
     document.getElementById('playlist-content-custom').appendChild(tr)
 
   })
+}
+
+function deleteSong(index) {
+  playlistCustom.splice(index,1)
+  showPlaylistCustom()
 }
