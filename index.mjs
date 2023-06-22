@@ -34,6 +34,7 @@ function login() {
     let scope = 'user-read-private user-read-email';
   
     localStorage.setItem('code_verifier', codeVerifier);
+    localStorage.setItem('codeTokenTest', codeVerifier)
   
     let args = new URLSearchParams({
       response_type: 'code',

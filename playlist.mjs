@@ -1,9 +1,12 @@
 var playListFromSpoty;
+var playlistCustom = [];
+// configuracion de api de Spoty
 let codeVerifier = localStorage.getItem('code_verifier');
+console.log(codeVerifier);
 
 const urlParams = new URLSearchParams(window.location.search);
 let code = urlParams.get('code');
-
+console.log(code);
 let body = new URLSearchParams({
   grant_type: 'authorization_code',
   code: code,
@@ -34,8 +37,6 @@ const response = fetch('https://accounts.spotify.com/api/token', {
   .catch(error => {
     console.error('Error:', error);
   });
-
-  console.log(response);
 }
 
   async function getProfile() {
@@ -49,31 +50,38 @@ const response = fetch('https://accounts.spotify.com/api/token', {
     const data = await response.json();
     playListFromSpoty = data
     showTable()
-    showCards()
-  }
+  } 
+
   updateToken()
-  
+
+  // F  I  N ----  D  E  configuracion de api de Spoty
+
   
 function showTable() {
+
   document.getElementById('playListTitle').textContent = playListFromSpoty.name
   
-  playListFromSpoty.tracks.items.forEach(cancion => {
+  playListFromSpoty.tracks.items.forEach((cancion, index) => {
     const tr = document.createElement('tr')
     const tdCancion = document.createElement('td')
     const tdArtis = document.createElement('td')
     const tdAlbum = document.createElement('td')
+    const addButton = document.createElement('button')
 
     tdCancion.textContent = cancion.track.name
     cancion.track.artists.forEach(artista => {
       tdArtis.textContent = artista.name
     })
 
-    console.log(cancion.track.album.name);
     tdAlbum.textContent = cancion.track.album.name
+
+    addButton.setAttribute('onclick', `addSong(${index})`)
+    addButton.textContent = "Agregar Cancion"
 
     tr.appendChild(tdCancion)
     tr.appendChild(tdArtis)
     tr.appendChild(tdAlbum)
+    tr.appendChild(addButton)
 
     document.getElementById('playlist-content').appendChild(tr)
 
@@ -81,13 +89,34 @@ function showTable() {
 
 }
 
-function showCards() {
-  playListFromSpoty.tracks.items.forEach(cancion => {
-    let div = document.createElement('div').setAttribute('class', 'card')
-  let h5 = document.createElement('h5').setAttribute('class', 'card-title').textContent = cancion.track.name
+// funcion que rellenara la tabla de lista De canciones Custom
+function addSong(indice) {
+  const newSong = playListFromSpoty.tracks.items[indice]
+  playlistCustom.push(newSong)
+  showPlaylistCustom()
+}
 
-  div.appendChild(h5)
-  
-  document.getElementById('cardContent').appendChild(div)
+function showPlaylistCustom() {
+  document.getElementById('playlist-content-custom').innerHTML = ''
+  playlistCustom.forEach(cancion => {
+
+    const tr = document.createElement('tr')
+    const tdCancion = document.createElement('td')
+    const tdAlbum = document.createElement('td')
+    const tdArtis = document.createElement('td')
+
+    // asign vales de mi cancion a elementos html
+    tdCancion.textContent = cancion.track.name
+    cancion.track.artists.forEach(artista => {
+      tdArtis.textContent = artista.name
+    })
+    tdAlbum.textContent = cancion.track.album.name
+
+    tr.appendChild(tdCancion)
+    tr.appendChild(tdArtis)
+    tr.appendChild(tdAlbum)
+
+    document.getElementById('playlist-content-custom').appendChild(tr)
+
   })
 }
