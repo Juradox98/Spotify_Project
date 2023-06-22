@@ -63,10 +63,15 @@ function showTable() {
   
   playListFromSpoty.tracks.items.forEach((cancion, index) => {
     const tr = document.createElement('tr')
+    const tdImage = document.createElement('td')
+    const image = document.createElement('img')
     const tdCancion = document.createElement('td')
     const tdArtis = document.createElement('td')
     const tdAlbum = document.createElement('td')
     const addButton = document.createElement('button')
+
+    image.setAttribute('src', `${cancion.track.album.images[0].url}`)
+    image.setAttribute('class', 'imageSize')
 
     tdCancion.textContent = cancion.track.name
     cancion.track.artists.forEach(artista => {
@@ -78,10 +83,14 @@ function showTable() {
     addButton.setAttribute('onclick', `addSong(${index})`)
     addButton.textContent = "Agregar Cancion"
 
+    tdImage.appendChild(image)
+
+    tr.appendChild(tdImage)
     tr.appendChild(tdCancion)
     tr.appendChild(tdArtis)
     tr.appendChild(tdAlbum)
     tr.appendChild(addButton)
+    
 
     document.getElementById('playlist-content').appendChild(tr)
 
@@ -92,8 +101,12 @@ function showTable() {
 // funcion que rellenara la tabla de lista De canciones Custom
 function addSong(indice) {
   const newSong = playListFromSpoty.tracks.items[indice]
-  playlistCustom.push(newSong)
-  showPlaylistCustom()
+  if (existSong(newSong)) {
+    alert("la cancion "+ newSong.track.name + " ya existe")
+  } else {
+    playlistCustom.push(newSong)
+    showPlaylistCustom()
+  }
 }
 
 function showPlaylistCustom() {
@@ -129,4 +142,9 @@ function showPlaylistCustom() {
 function deleteSong(index) {
   playlistCustom.splice(index,1)
   showPlaylistCustom()
+}
+
+
+function existSong(song) {
+return playlistCustom.includes(song)
 }
