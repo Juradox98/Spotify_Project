@@ -30,7 +30,6 @@ const response = fetch('https://accounts.spotify.com/api/token', {
     return response.json();
   })
   .then(data => {
-    console.log("token: ", data);
     localStorage.setItem('access_token', data.access_token);
     getProfile()
   })
@@ -69,6 +68,7 @@ function showTable() {
     const tdArtis = document.createElement('td')
     const tdAlbum = document.createElement('td')
     const addButton = document.createElement('button')
+    const player = document.createElement('audio')
 
     image.setAttribute('src', `${cancion.track.album.images[0].url}`)
     image.setAttribute('class', 'imageSize')
@@ -83,6 +83,10 @@ function showTable() {
     addButton.setAttribute('onclick', `addSong(${index})`)
     addButton.textContent = "Agregar Cancion"
 
+    player.setAttribute('src', `${cancion.track.preview_url}`)
+    player.setAttribute('controls','controls')
+
+
     tdImage.appendChild(image)
 
     tr.appendChild(tdImage)
@@ -90,6 +94,7 @@ function showTable() {
     tr.appendChild(tdArtis)
     tr.appendChild(tdAlbum)
     tr.appendChild(addButton)
+    tr.appendChild(player)
     
 
     document.getElementById('playlist-content').appendChild(tr)
