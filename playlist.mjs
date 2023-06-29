@@ -10,8 +10,8 @@ console.log(code);
 let body = new URLSearchParams({
   grant_type: 'authorization_code',
   code: code,
-  redirect_uri: 'http://127.0.0.1:5500/Data/spotyV2/playlist.html',
-  client_id: "d4c5a153520c4108a09b085d478cb21e",
+  redirect_uri: 'http://127.0.0.1:5500/playlist.html',
+  client_id: "eea4dc70e6a34340902045d6287e2b13",
   code_verifier: codeVerifier
 });
 
@@ -41,7 +41,7 @@ const response = fetch('https://accounts.spotify.com/api/token', {
   async function getProfile() {
     let accessToken = localStorage.getItem('access_token');
   
-    const response = await fetch('https://api.spotify.com/v1/playlists/5nRcIY7BnEqgzrTH3GehH2', {
+    const response = await fetch('https://api.spotify.com/v1/playlists/4QH79OK5GvD46aNbIjmDfW', {
       headers: {
         Authorization: 'Bearer ' + accessToken
       }

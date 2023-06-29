@@ -2,7 +2,7 @@ const playlistJoe = {
   "collaborative": false,
   "description": "",
   "external_urls": {
-    "spotify": "https://open.spotify.com/playlist/4FZc1CxigtGJD91ms92DQd"
+    "spotify": "https://open.spotify.com/playlist/4QH79OK5GvD46aNbIjmDfW"
   },
   "followers": {
     "href": null,

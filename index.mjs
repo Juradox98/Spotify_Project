@@ -1,5 +1,5 @@
-const clientId = 'd4c5a153520c4108a09b085d478cb21e';
-const redirectUri = 'http://127.0.0.1:5500/Data/spotyV2/playlist.html';
+const clientId = 'eea4dc70e6a34340902045d6287e2b13';
+const redirectUri = 'http://127.0.0.1:5500/playlist.html';
 
 function generateRandomString(length) {
     let text = '';
